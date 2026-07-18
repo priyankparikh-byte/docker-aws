@@ -11,3 +11,4 @@ FROM node:18-alpine as build-backend
 COPY ./backend /app
 WORKDIR /app
 RUN npm install
+COPY --from=build-frontend /app/dist /app/public
