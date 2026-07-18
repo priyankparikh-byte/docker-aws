@@ -1,7 +1,13 @@
-FROM node:20-alpine
+# build frontend
+FROM node:18-alpine as build-frontend
 
-COPY ./backend .
-
+COPY ./frontend /app
+WORKDIR /app
 RUN npm install
+RUN npm run build
 
-CMD ["node", "server.js"]
+#build backend
+FROM node:18-alpine as build-backend
+COPY ./backend /app
+WORKDIR /app
+RUN npm install
